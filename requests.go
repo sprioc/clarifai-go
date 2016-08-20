@@ -35,32 +35,32 @@ type TagRequest struct {
 
 // TagResp represents the expected JSON response from /tag/
 type TagResp struct {
-	StatusCode    string `json:"status_code"`
-	StatusMessage string `json:"status_msg"`
+	StatusCode    string `json:"status_code" bson:"status_code"`
+	StatusMessage string `json:"status_msg" bson:"status_msg"`
 	Meta          struct {
 		Tag struct {
-			Timestamp json.Number `json:"timestamp"`
-			Model     string      `json:"model"`
-			Config    string      `json:"config"`
-		}
-	}
-	Results []TagResult
+			Timestamp json.Number `json:"timestamp" bson:"timestamp"`
+			Model     string      `json:"model" bson:"model"`
+			Config    string      `json:"config" bson:"config"`
+		} `json:"tag" bson:"tag"`
+	} `json:"meta" bson:"meta"`
+	Results []TagResult `json:"results" bson:"results"`
 }
 
 // TagResult represents the expected data for a single tag result
 type TagResult struct {
-	DocID         *big.Int `json:"docid"`
-	URL           string   `json:"url"`
-	StatusCode    string   `json:"status_code"`
-	StatusMessage string   `json:"status_msg"`
-	LocalID       string   `json:"local_id"`
+	DocID         *big.Int `json:"docid" bson:"docid"`
+	URL           string   `json:"url" bson:"url"`
+	StatusCode    string   `json:"status_code" bson:"status_code"`
+	StatusMessage string   `json:"status_msg" bson:"status_msg"`
+	LocalID       string   `json:"local_id" bson:"local_id"`
 	Result        struct {
 		Tag struct {
-			Classes []string  `json:"classes"`
-			CatIDs  []string  `json:"catids"`
-			Probs   []float32 `json:"probs"`
-		}
-	}
+			Classes []string  `json:"classes" bson:"classes"`
+			CatIDs  []string  `json:"catids" bson:"catids"`
+			Probs   []float32 `json:"probs" bson:"probs"`
+		} `json:"tag" bson:"tag"`
+	} `json:"result" bson:"result"`
 	DocIDString string `json:"docid_str"`
 }
 
@@ -72,24 +72,24 @@ type ColorRequest struct {
 
 // ColorResp is the expected response from the /color/ endpoint
 type ColorResp struct {
-	StatusCode    string `json:"status_code"`
-	StatusMessage string `json:"status_msg"`
+	StatusCode    string `json:"status_code" bson:"status_code"`
+	StatusMessage string `json:"status_msg" bson:"status_msg"`
 	Results       []struct {
-		DocID       *big.Int `json:"docid"`
-		URL         string   `json:"url"`
-		DocIDString string   `json:"docid_str"`
-		Colors      []Color  `json:"colors"`
-	} `json:"results"`
+		DocID       *big.Int `json:"docid" bson:"docid"`
+		URL         string   `json:"url" bson:"url"`
+		DocIDString string   `json:"docid_str" bson:"docid_str"`
+		Colors      []Color  `json:"colors" bson:"colors"`
+	} `json:"results" bson:"results"`
 }
 
 // Color represents a single color in a given image
 type Color struct {
 	W3C struct {
-		Hex  string `json:"hex"`
-		Name string `json:"name"`
-	}
-	Hex     string  `json:"hex"`
-	Density float64 `json:"density"`
+		Hex  string `json:"hex" bson:"hex"`
+		Name string `json:"name" bson:"name"`
+	} `json:"w3c" bson:"w3c"`
+	Hex     string  `json:"hex" bson:"hex"`
+	Density float64 `json:"density" bson:"density"`
 }
 
 // FeedbackForm is used to send feedback back to Clarifai
